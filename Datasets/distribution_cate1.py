@@ -57,16 +57,8 @@ for k, v in sorted_subca_counts.items():
   ks.append(k)
   vs.append(v)
 
-final_keys = list(set(keys + ks)) 
-new_values = []
-for k in final_keys:
-  if k not in keys:
-    new_values.append(0)
-  else:
-    idk = keys.index(k)
-    new_values.append(values[idk])
 new_vs = []
-for k in final_keys:
+for k in keys:
   if k not in ks:
     new_vs.append(0)
   else:
@@ -76,9 +68,9 @@ for k in final_keys:
 plt.rcdefaults()
 fig, ax = plt.subplots(figsize=(5, 8))
 
-height_train = new_values
+height_train = values
 height_val = new_vs
-bars = final_keys
+bars = keys
 y_pos = np.arange(len(bars))
 
 ax.barh(y_pos, height_train, 0.5, left=0, align='center', color='lightblue')
