@@ -1,5 +1,7 @@
 import scipy.io
 import numpy as np
+import matplotlib 
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
 from pylab import *
 
@@ -87,4 +89,3 @@ for item in ([ax.title, ax.xaxis.label, ax.yaxis.label] +
              ax.get_xticklabels() + ax.get_yticklabels() ):
     item.set_fontsize(7)
 plt.savefig('distribution_cate2.png', bbox_inches = 'tight')
-plt.show()
