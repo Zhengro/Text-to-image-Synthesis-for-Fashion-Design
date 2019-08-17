@@ -1,6 +1,8 @@
 import h5py
 import numpy as np
 from collections import defaultdict, OrderedDict
+import matplotlib 
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
 from pylab import *
 
@@ -55,8 +57,16 @@ for k, v in sorted_subca_counts.items():
   ks.append(k)
   vs.append(v)
 
+final_keys = list(set(keys + ks)) 
+new_values = []
+for k in final_keys:
+  if k not in keys:
+    new_values.append(0)
+  else:
+    idk = keys.index(k)
+    new_values.append(values[idk])
 new_vs = []
-for k in keys:
+for k in final_keys:
   if k not in ks:
     new_vs.append(0)
   else:
@@ -66,9 +76,9 @@ for k in keys:
 plt.rcdefaults()
 fig, ax = plt.subplots(figsize=(5, 8))
 
-height_train = values
+height_train = new_values
 height_val = new_vs
-bars = keys
+bars = final_keys
 y_pos = np.arange(len(bars))
 
 ax.barh(y_pos, height_train, 0.5, left=0, align='center', color='lightblue')
@@ -83,7 +93,6 @@ ax.grid(True, axis='x', c='silver', linestyle='--', linewidth=0.58)
 minorticks_off()
 tick_params(top=False, bottom=False, left=False, right=False)
 
-
 split = ['train','validation']
 plt.legend(split, loc=4, prop={'size': 7})
 
@@ -91,4 +100,3 @@ for item in ([ax.title, ax.xaxis.label, ax.yaxis.label] +
              ax.get_xticklabels() + ax.get_yticklabels() ):
     item.set_fontsize(7)
 plt.savefig('distribution_cate1.png', bbox_inches = 'tight')
-plt.show()
