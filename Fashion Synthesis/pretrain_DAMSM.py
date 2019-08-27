@@ -81,14 +81,12 @@ def train(dataloader, cnn_model, rnn_model, batch_size,
         # words_features: batch_size x nef x 17 x 17
         # sent_code: batch_size x nef
         words_features, sent_code = cnn_model(imgs[-1])
-        # --> batch_size x nef x 17*17
         nef, att_sze = words_features.size(1), words_features.size(2)
-        # words_features = words_features.view(batch_size, nef, -1)
         hidden = rnn_model.init_hidden(batch_size)
-        # words_emb: batch_size x nef x seq_len
-        # sent_emb: batch_size x nef
         if batch_size==1:
           captions = captions.unsqueeze(0)
+        # words_emb: batch_size x nef x seq_len
+        # sent_emb: batch_size x nef
         words_emb, sent_emb = rnn_model(captions, cap_lens, hidden)
         w_loss0, w_loss1, attn_maps = words_loss(words_features, words_emb, labels, cap_lens, class_ids, batch_size)
         w_total_loss0 += w_loss0.data
@@ -123,7 +121,7 @@ def train(dataloader, cnn_model, rnn_model, batch_size,
           w_total_loss0 = 0
           w_total_loss1 = 0
           start_time = time.time()
-          # attention Maps
+          # attention maps
           img_set, _ = build_super_images(imgs[-1].cpu(), captions, ixtoword, attn_maps, att_sze, batch_size, cfg.TEXT.WORDS_NUM, lr_imgs=None)
           if img_set is not None:
             im = Image.fromarray(img_set)
