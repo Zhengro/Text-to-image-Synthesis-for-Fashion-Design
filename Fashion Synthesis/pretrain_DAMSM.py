@@ -137,7 +137,6 @@ def train(dataloader, cnn_model, rnn_model, batch_size,
     print('-' * 90)
     return count
 
-
 def evaluate(dataloader, cnn_model, rnn_model, batch_size, labels):
     cnn_model.eval()
     rnn_model.eval()
@@ -156,11 +155,9 @@ def evaluate(dataloader, cnn_model, rnn_model, batch_size, labels):
         w_total_loss += (w_loss0 + w_loss1).data
         s_loss0, s_loss1 = sent_loss(sent_code, sent_emb, labels, class_ids, batch_size)
         s_total_loss += (s_loss0 + s_loss1).data
-
     s_cur_loss = s_total_loss.item() / len(dataloader)
     w_cur_loss = w_total_loss.item() / len(dataloader)
     return s_cur_loss, w_cur_loss
-
 
 def build_models():
     text_encoder = RNN_ENCODER(dataset.n_words, nhidden=cfg.TEXT.EMBEDDING_DIM)
