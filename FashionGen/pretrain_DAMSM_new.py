@@ -63,7 +63,6 @@ def parse_args():
     args = parser.parse_args()
     return args
 
-
 def train(dataloader, cnn_model, rnn_model, batch_size,
           labels, optimizer, epoch, ixtoword, image_dir):
     cnn_model.train()
@@ -83,9 +82,7 @@ def train(dataloader, cnn_model, rnn_model, batch_size,
         # words_features: batch_size x nef x 17 x 17
         # sent_code: batch_size x nef
         words_features, sent_code = cnn_model(imgs[-1])
-        # --> batch_size x nef x 17*17
         nef, att_sze = words_features.size(1), words_features.size(2)
-        # words_features = words_features.view(batch_size, nef, -1)
         hidden = rnn_model.init_hidden(batch_size)
         # words_emb: batch_size x nef x seq_len
         # sent_emb: batch_size x nef
@@ -123,7 +120,7 @@ def train(dataloader, cnn_model, rnn_model, batch_size,
           w_total_loss0 = 0
           w_total_loss1 = 0
           start_time = time.time()
-          # attention Maps
+          # attention maps
           img_set, _ = build_super_images(imgs[-1].cpu(), captions, ixtoword, attn_maps, att_sze, batch_size, cfg.TEXT.WORDS_NUM, lr_imgs=None)
           if img_set is not None:
             im = Image.fromarray(img_set)
@@ -136,7 +133,6 @@ def train(dataloader, cnn_model, rnn_model, batch_size,
                      .format(epoch, s_cur_loss, w_cur_loss))
     print('-' * 90)
     return count
-
 
 def evaluate(dataloader, cnn_model, rnn_model, batch_size, labels):
     cnn_model.eval()
@@ -159,7 +155,6 @@ def evaluate(dataloader, cnn_model, rnn_model, batch_size, labels):
     s_cur_loss = s_total_loss.item() / len(dataloader)
     w_cur_loss = w_total_loss.item() / len(dataloader)
     return s_cur_loss, w_cur_loss
-
 
 def build_models():
     text_encoder = RNN_ENCODER(dataset.n_words, nhidden=cfg.TEXT.EMBEDDING_DIM)
