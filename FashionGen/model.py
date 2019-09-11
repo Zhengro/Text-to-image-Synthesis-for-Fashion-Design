@@ -97,6 +97,10 @@ class RNN_ENCODER(nn.Module):
 
     def define_module(self):
         self.encoder = nn.Embedding(self.ntoken, self.ninput)
+        # embedding layer with GloVe word embeddings
+#         matrix = np.load('/.local/AttnGAN/data/Glove/pre_weights_matrix.npy')
+#         weight = torch.from_numpy(matrix).float().cuda()
+#         self.encoder = nn.Embedding.from_pretrained(weight)
         self.drop = nn.Dropout(self.drop_prob)
         if self.rnn_type == 'LSTM':
             # dropout: If non-zero, introduces a dropout layer on
