@@ -43,3 +43,6 @@ We display the images (i.e., example 1* and example 2*) synthesized by StackGAN 
 example 1* | example 2* | example 5* | example 6*
 :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
 ![](/StackGAN/s1_gen.png)  | ![](/StackGAN/s11_gen.png) | ![](/StackGAN/s7_syn.png) | ![](/StackGAN/s10_syn.png)
+## References
+- [StackGAN: Text to Photo-realistic Image Synthesis with Stacked Generative Adversarial Networks](https://arxiv.org/pdf/1612.03242v1.pdf)
+- [AttnGAN: Fine-Grained Text to Image Generation with Attentional Generative Adversarial Networks](http://openaccess.thecvf.com/content_cvpr_2018/papers/Xu_AttnGAN_Fine-Grained_Text_CVPR_2018_paper.pdf)
